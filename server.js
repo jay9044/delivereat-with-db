@@ -81,13 +81,14 @@ app.post("/api/orders", function(req,res){
   )
   .then(data =>{
     const orderId = data.id
-    const {orders} = req.body
+    const orders = req.body  // may need to take away brckets from orders
 
     return Promise.all(orders.map(order =>{
       return db.none(
         `INSERT INTO orders_purchased (menuitem_id,order_id,quantity)
          VALUES ($1, $2, $3)`,
-         [order.menuitem_id, orderId, order.quantity]
+         [order.id, orderId, order.quantity]  // they need to match the values passed it . look at console log of order whe pushed // maybe just need to change menuitem_id to order.id
+         //change in the fecth order tp + data.order_id in the alert
       );
     })).then(() => orderId)
   })

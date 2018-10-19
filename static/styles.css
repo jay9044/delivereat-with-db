@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  text-align:center;
 }
 
 .app{
@@ -39,4 +40,10 @@ p {
 }
 span{
   font-size: 10px
+}
+
+.order{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr ;
+  font-size: 10px;
 }

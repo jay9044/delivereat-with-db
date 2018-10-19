@@ -10,7 +10,7 @@ class App extends React.Component {
       menu: {},
       order: {}
     }
-    
+    this.getOrder = this.getOrder.bind(this);
   }
 
 
@@ -58,7 +58,9 @@ getOrder(order) {
   render(){
     return (
       <div className='app'>
-        <Basket orders={this.state.order}/>
+        {Object.keys(this.state.order).length === 0 ? null : 
+          <Basket order={this.state.order}/>
+        }
         <h1>Philly Cheesecakes</h1>
         <MenuResultsMap  getOrder={this.getOrder} menu={this.state.menu}/>
       </div>
@@ -67,3 +69,4 @@ getOrder(order) {
 }
 
 export default App;
+
