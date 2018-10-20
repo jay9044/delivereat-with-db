@@ -21,9 +21,10 @@ app.get('/', function(req, res){
   res.render('index');
 });
 
-app.get("/api/menudata", function(req, res) {
+app.get("/api/menudata/cheesecakes", function(req, res) {
   db.any(
-    `SELECT * FROM menudata`
+    `SELECT * FROM menudata 
+     WHERE category = 'cheesecake'`
   )
     .then(function(data) {
       res.json(data);
@@ -32,6 +33,22 @@ app.get("/api/menudata", function(req, res) {
       res.json({ error: error.message });
     });
 });
+
+app.get("/api/menudata/cupcakes", function(req, res) {
+  db.any(
+    `SELECT * FROM menudata 
+     WHERE category = 'cookies'`
+  )
+    .then(function(data) {
+      res.json(data);
+    })
+    .catch(function(error) {
+      res.json({ error: error.message });
+    });
+});
+
+
+
 app.get("/api/menudata/:id", function(req, res) {
   const menudata_id = req.params.id
   db.one(

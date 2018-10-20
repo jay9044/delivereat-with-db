@@ -11,15 +11,21 @@ class App extends React.Component {
       order: {}
     }
     this.getOrder = this.getOrder.bind(this);
+    // this.selectCupcakes = this.selectCupcakes.bind(this)
+    // this.selectCheesecakes = this.selectCheesecakes.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.clearOrder = this.clearOrder.bind(this)
   }
 
+  // do a fillter of drinks cheesecakes etc, look at chris code from last week and rowlands for hamburger basket
 
   componentDidMount(){
-    this.fetchMenu()
+    const cheesecakes = `/api/menudata/cheesecakes`
+    this.fetchMenu(cheesecakes)
   }
-
-  fetchMenu(){
-    fetch('/api/menudata')
+ 
+  fetchMenu(url){
+    fetch(url)
     .then(response => response.json())
     .then(body => {
       console.log(body)
@@ -27,6 +33,32 @@ class App extends React.Component {
         menu: body,
       })
   })
+}
+
+clearOrder(){
+  this.setState({
+    order: {}
+  })
+} 
+
+// selectCupcakes(event){
+//   const cupcakes = `/api/menudata/cupcakes`
+//   this.setState({
+//     cupcakes: event.target.value
+//   }, () => this.fetchMenu(cupcakes))
+// }
+
+// selectCheesecakes(event){
+//   const cheesecakes = `/api/menudata/cheesecakes`
+//   this.setState({
+//       cheesecakes: event.target.value
+//   }, () => this.fetchMenu(cheesecakes))
+// }
+
+handleChange(event){
+  this.setState({
+    selection: event.target.value
+  }, () => this.fetchMenu(`/api/menudata/${this.state.selection}`))
 }
 
 getOrder(order) {
@@ -59,9 +91,15 @@ getOrder(order) {
     return (
       <div className='app'>
         {Object.keys(this.state.order).length === 0 ? null : 
-          <Basket order={this.state.order}/>
-        }
+          <Basket clearOrder={this.clearOrder} order={this.state.order}/>}
         <h1>Philly Cheesecakes</h1>
+        <p>All desserts are made fresh to order. Please give a 48 hour notice for preparation. Small cheesecakes serve six, medium cheesecakes serve eight, and large cheesecakes serve ten to twelve.</p>
+        <div>
+          <select value={this.state.selection} name="Dessert Filter" onChange={this.handleChange}>
+            <option value='cheesecakes'>CheeseCakes</option>
+            <option value="cupcakes">CupCakes</option>
+            </select>
+         </div>
         <MenuResultsMap  getOrder={this.getOrder} menu={this.state.menu}/>
       </div>
     )
