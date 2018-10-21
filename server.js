@@ -78,9 +78,11 @@ app.get("/api/orders", function(req, res) {
 
 app.get("/api/orders/limit", function(req, res) {
   db.any(
-    `SELECT menuitem_id, quantity, order_id FROM orders_purchased
-    ORDER BY order_id DESC
-    LIMIT 1
+    `SELECT menudata.id, quantity, order_id, menudata.name FROM orders_purchased, menudata
+    WHERE menudata.id = orders_purchased.menuitem_id
+    ORDER BY orders_purchased.order_id desc
+    LIMIT 2
+    
     `
      
   )

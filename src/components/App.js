@@ -17,11 +17,13 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.clearOrder = this.clearOrder.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.fetchOrders = this.fetchOrders.bind(this)
   }
 
   componentDidMount(){
     const cheesecakes = `/api/menudata/cheesecakes`
     this.fetchMenu(cheesecakes)
+    this.fetchOrders()
   }
  
   fetchMenu(url){
@@ -94,23 +96,24 @@ getOrder(order) {
 
   render(){
     return (
-      <div className='app catch-of-the-day'>
+      <div className='app menu-layout'>
         <div>
-        <PreviousOrders prevOrders={this.state.prevOrders}/>
+        
         <h3 className='order-status'>Order Status</h3>
         {Object.keys(this.state.order).length === 0 ? null : 
           <Basket handleDelete={this.handleDelete} clearOrder={this.clearOrder} order={this.state.order}/>
           }
-          {/* {Object.keys(this.state.previousOrders).length === 0 ? null :
-            
-          } */}
-          
+          {Object.keys(this.state.prevOrders).length === 0 ? null :
+            <PreviousOrders  prevOrders={this.state.prevOrders}/>
+          }
           </div>
          
           <div>
           <h3 className='welcome-heading'>Welcome</h3>
           <hr></hr>
            <h1>Philly Cheesecakes</h1>
+      
+           
             <p>All desserts are made fresh to order. Please give a 48 hour notice for preparation. Small cheesecakes serve six, medium cheesecakes serve eight, and large cheesecakes serve ten to twelve.</p>
             <select value={this.state.selection} name="Dessert Filter" onChange={this.handleChange}>
             <option value='cheesecakes'>CheeseCakes</option>

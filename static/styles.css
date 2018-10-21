@@ -3,7 +3,7 @@ body {
   text-align:center;
 }
 
-.catch-of-the-day {
+.menu-layout {
   -webkit-box-flex: 1;
   -ms-flex: 1 4 auto;
       flex: 1 4 auto;
@@ -41,8 +41,13 @@ h1{
   font-family: 'Anton', sans-serif;
 }
 
+h4{
+  font-family: 'Charmonman', cursive;
+}
+
 p {
-  font-size: 10px
+  font-size: 10px;
+  
 }
 span{
   font-size: 10px
@@ -61,7 +66,7 @@ img{
 }
 .order{
   display: grid;
-  grid-template-columns: 1fr auto 1fr 1fr ;
+  grid-template-columns: 1fr 1fr auto 1fr ;
   font-size: 10px;
   text-align: center;
 }
@@ -77,6 +82,9 @@ img{
 
 .order-status{
   display:none;
+}
+.prev-order{
+  display: none;
 }
 
 hr{
@@ -95,7 +103,7 @@ button{
     display:grid;
     grid-template-columns: auto 1fr;
   } */
-  .catch-of-the-day {
+  .menu-layout {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -109,7 +117,7 @@ button{
             transform-style: preserve-3d;
   }
 
-  .catch-of-the-day > * {
+  .menu-layout > * {
     -webkit-box-flex: 1;
         -ms-flex: 1 4 auto;
             flex: 1 4 auto;
@@ -124,7 +132,7 @@ button{
             overflow: scroll;
   }
 
-  .catch-of-the-day > *:first-child {
+  .menu-layout > *:first-child {
     -ms-flex-negative: 1;
         flex-shrink: 1;
     -ms-flex-preferred-size: 50%;
@@ -141,7 +149,7 @@ button{
     border-right: 0;
     min-width: 300px;
   } */
-  .catch-of-the-day > *:last-child {
+  .menu-layout > *:last-child {
     -ms-flex-negative: 1;
         flex-shrink: 1;
     -ms-flex-preferred-size: 50%;
@@ -152,15 +160,21 @@ button{
   }
 
   .basket{
+   
+   
     background: white;
     color: black;
-    
+    text-align: center;
   }
 
   .order-status{
     display: block;
     
   }
+  .prev-order{
+    display: block;
+    margin-top: 300px;
+  }
   
-
+ 
 }

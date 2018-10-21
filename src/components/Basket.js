@@ -7,7 +7,7 @@ class Basket extends React.Component {
     super(props)
     this.state = {  
       finalPrice: '',
-      showOrder: false
+      
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDeleted = this.handleDeleted.bind(this)
@@ -85,8 +85,8 @@ handleDeleted(event) {
                   </div>
                   </h3>
                   <h3>£ {this.props.order[item].price}</h3>
-                  <h2 type="submit" onClick={this.handleDeleted}>X</h2>
-                  {this.state.order && <button>Show My Order</button>}
+                  <h2 type="submit" onClick={this.handleDeleted}>x</h2>
+                  
                 </div>
             )
           })}
