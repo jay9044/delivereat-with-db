@@ -43,7 +43,8 @@ class DisplayMenuResults extends React.Component {
    
     return (
     <div>
-        <h3>{this.props.menuItems.name} <span>£({this.props.menuItems.price})</span></h3> 
+        <h3 className='product-title'>{this.props.menuItems.name} </h3> 
+        <p>£({this.props.menuItems.price})</p>
         <img src={`/static/images/${this.props.menuItems.image}`}/>
         <p>{this.props.menuItems.description}</p>
         

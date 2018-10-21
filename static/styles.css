@@ -37,6 +37,10 @@ input[type="button"] {
   
 }
 
+h1{
+  font-family: 'Anton', sans-serif;
+}
+
 p {
   font-size: 10px
 }
@@ -44,13 +48,22 @@ span{
   font-size: 10px
 }
 
+.welcome-heading{
+  font-family: 'Charmonman', cursive;
+}
+
 img{
   width: 150px;
+}
+
+.product-title{
+  font-family: 'Lobster', cursive;
 }
 .order{
   display: grid;
   grid-template-columns: 1fr auto 1fr 1fr ;
   font-size: 10px;
+  text-align: center;
 }
 
 .basket{
@@ -66,7 +79,18 @@ img{
   display:none;
 }
 
-@media screen and (min-width: 650px) {
+hr{
+  width: 50px;
+}
+
+button{
+  -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+            border: 5px solid #1a1a1a;
+}
+
+
+@media screen and (min-width: 700px) {
   /* .app{
     display:grid;
     grid-template-columns: auto 1fr;
@@ -107,15 +131,16 @@ img{
         flex-basis: 50%;
     -webkit-transform: translateX(50%) rotateY(6deg) translateX(-50%);
             transform: translateX(50%) rotateY(6deg) translateX(-50%);
-            order: 2
+            order: 2;
+            text-align:center;
   }
-  .catch-of-the-day > *:nth-child(2) {
+  /* .catch-of-the-day > *:nth-child(2) {
     -webkit-transform: translateX(-50%) rotateY(-14deg) translateX(50%);
             transform: translateX(-50%) rotateY(-14deg) translateX(50%);
     border-left: 0;
     border-right: 0;
     min-width: 300px;
-  }
+  } */
   .catch-of-the-day > *:last-child {
     -ms-flex-negative: 1;
         flex-shrink: 1;
@@ -129,9 +154,13 @@ img{
   .basket{
     background: white;
     color: black;
+    
   }
 
   .order-status{
     display: block;
+    
   }
+  
+
 }

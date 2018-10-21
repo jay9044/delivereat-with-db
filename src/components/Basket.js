@@ -71,7 +71,8 @@ handleDeleted(event) {
   
       return (
         <div className='basket sticky'>
-          <h3>Your Order</h3>
+          <h4>Your Order</h4>
+          <hr></hr>
           <p><strong>Delivery charge: £5.00</strong></p>
           {Object.keys(this.props.order).map(item => {
             return (

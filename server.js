@@ -76,6 +76,22 @@ app.get("/api/orders", function(req, res) {
     });
 });
 
+app.get("/api/orders/limit", function(req, res) {
+  db.any(
+    `SELECT menuitem_id, quantity, order_id FROM orders_purchased
+    ORDER BY order_id DESC
+    LIMIT 1
+    `
+     
+  )
+    .then(function(data) {
+      res.json(data);
+    })
+    .catch(function(error) {
+      res.json({ error: error.message });
+    });
+});
+
 app.get("/api/orders/:id", function(req, res) {
   const orderId = req.params.id
   db.one(

@@ -1,14 +1,16 @@
 
 import React from 'react'
+import DisplayPrevOrders from './DisplayPrevOrders'
 
-
-function PreviousOrders({previousOrders}) {
-    const previousOrdersKeys = Object.values(previousOrders)
+function PreviousOrders({prevOrders}) {
+    const previousOrdersKeys = Object.values(prevOrders)
    
   
       return (
         <div>
-         <button>Show my Order</button>
+          <ul>
+              {previousOrdersKeys.map(prevItems => <DisplayPrevOrders prevItems={prevItems} key={prevItems.menuitem_id} /> )}
+          </ul>
         </div>
       );
   }

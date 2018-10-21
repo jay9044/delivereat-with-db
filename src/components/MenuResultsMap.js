@@ -6,6 +6,7 @@ function MenuResultsMap({menu, getOrder}) {
       return (
         <div>
           <h3>Desserts</h3>
+          <hr></hr>
             <ul>
               {menuKeys.map(menuItems => <DisplayMenuResults getOrder={getOrder} menuItems={menuItems} key={menuItems.id} /> )}
             </ul>

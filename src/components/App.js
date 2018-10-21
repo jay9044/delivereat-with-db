@@ -11,7 +11,7 @@ class App extends React.Component {
     this.state = {
       menu: {},
       order: {},
-      previousOrders: {}
+      prevOrders: {}
     }
     this.getOrder = this.getOrder.bind(this);
     this.handleChange = this.handleChange.bind(this)
@@ -28,12 +28,23 @@ class App extends React.Component {
     fetch(url)
     .then(response => response.json())
     .then(body => {
-      console.log(body)
+
       this.setState({
         menu: body,
       })
   })
 }
+
+  fetchOrders(){
+    fetch(`/api/orders/limit`)
+    .then(response => response.json())
+    .then(body => {
+      console.log(body)
+      this.setState({
+        prevOrders: body
+      })
+    })
+  }
 
 clearOrder(){
   this.setState({
@@ -85,15 +96,20 @@ getOrder(order) {
     return (
       <div className='app catch-of-the-day'>
         <div>
-        <h4 className='order-status'>Order Status</h4>
+        <PreviousOrders prevOrders={this.state.prevOrders}/>
+        <h3 className='order-status'>Order Status</h3>
         {Object.keys(this.state.order).length === 0 ? null : 
           <Basket handleDelete={this.handleDelete} clearOrder={this.clearOrder} order={this.state.order}/>
           }
-          {Object.keys(this.state.previousOrders).length === 0 ? null :
-            <PreviousOrders previousOrders={this.state.previousOrders}/>
-          }
+          {/* {Object.keys(this.state.previousOrders).length === 0 ? null :
+            
+          } */}
+          
           </div>
+         
           <div>
+          <h3 className='welcome-heading'>Welcome</h3>
+          <hr></hr>
            <h1>Philly Cheesecakes</h1>
             <p>All desserts are made fresh to order. Please give a 48 hour notice for preparation. Small cheesecakes serve six, medium cheesecakes serve eight, and large cheesecakes serve ten to twelve.</p>
             <select value={this.state.selection} name="Dessert Filter" onChange={this.handleChange}>
@@ -101,11 +117,8 @@ getOrder(order) {
             <option value="cupcakes">CupCakes</option>
             </select>
             <MenuResultsMap  getOrder={this.getOrder} menu={this.state.menu}/>
+            
         </div>
-        
-          
-         
-        
       </div>
     )
   }
