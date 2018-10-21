@@ -32,9 +32,9 @@ class DisplayMenuResults extends React.Component {
         quantity: this.state.quantity
       };
       this.props.getOrder(order);
-      
       }
-  
+
+     
       revertQuantity(){
         this.state.quantity = 1
       }

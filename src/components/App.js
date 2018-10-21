@@ -2,22 +2,22 @@ import React from 'react';
 import '../styles/App.scss';
 import MenuResultsMap from './MenuResultsMap'
 import Basket from './Basket'
+import PreviousOrders from './PreviousOrders'
+
 class App extends React.Component {
   constructor(){
     super();
 
     this.state = {
       menu: {},
-      order: {}
+      order: {},
+      previousOrders: {}
     }
     this.getOrder = this.getOrder.bind(this);
-    // this.selectCupcakes = this.selectCupcakes.bind(this)
-    // this.selectCheesecakes = this.selectCheesecakes.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.clearOrder = this.clearOrder.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
-
-  // do a fillter of drinks cheesecakes etc, look at chris code from last week and rowlands for hamburger basket
 
   componentDidMount(){
     const cheesecakes = `/api/menudata/cheesecakes`
@@ -41,19 +41,12 @@ clearOrder(){
   })
 } 
 
-// selectCupcakes(event){
-//   const cupcakes = `/api/menudata/cupcakes`
-//   this.setState({
-//     cupcakes: event.target.value
-//   }, () => this.fetchMenu(cupcakes))
-// }
+handleDelete(key) {
+  this.setState(prevState => ({
+    order: prevState.order.filter(el => el.orderedItem != key)
+  }));
+}
 
-// selectCheesecakes(event){
-//   const cheesecakes = `/api/menudata/cheesecakes`
-//   this.setState({
-//       cheesecakes: event.target.value
-//   }, () => this.fetchMenu(cheesecakes))
-// }
 
 handleChange(event){
   this.setState({
@@ -87,20 +80,32 @@ getOrder(order) {
 }
 
 
+
   render(){
     return (
-      <div className='app'>
-        {Object.keys(this.state.order).length === 0 ? null : 
-          <Basket clearOrder={this.clearOrder} order={this.state.order}/>}
-        <h1>Philly Cheesecakes</h1>
-        <p>All desserts are made fresh to order. Please give a 48 hour notice for preparation. Small cheesecakes serve six, medium cheesecakes serve eight, and large cheesecakes serve ten to twelve.</p>
+      <div className='app catch-of-the-day'>
         <div>
-          <select value={this.state.selection} name="Dessert Filter" onChange={this.handleChange}>
+        <h4 className='order-status'>Order Status</h4>
+        {Object.keys(this.state.order).length === 0 ? null : 
+          <Basket handleDelete={this.handleDelete} clearOrder={this.clearOrder} order={this.state.order}/>
+          }
+          {Object.keys(this.state.previousOrders).length === 0 ? null :
+            <PreviousOrders previousOrders={this.state.previousOrders}/>
+          }
+          </div>
+          <div>
+           <h1>Philly Cheesecakes</h1>
+            <p>All desserts are made fresh to order. Please give a 48 hour notice for preparation. Small cheesecakes serve six, medium cheesecakes serve eight, and large cheesecakes serve ten to twelve.</p>
+            <select value={this.state.selection} name="Dessert Filter" onChange={this.handleChange}>
             <option value='cheesecakes'>CheeseCakes</option>
             <option value="cupcakes">CupCakes</option>
             </select>
-         </div>
-        <MenuResultsMap  getOrder={this.getOrder} menu={this.state.menu}/>
+            <MenuResultsMap  getOrder={this.getOrder} menu={this.state.menu}/>
+        </div>
+        
+          
+         
+        
       </div>
     )
   }

@@ -1,15 +1,16 @@
 import React from 'react'
 
 
+
 class Basket extends React.Component {
   constructor(props){
     super(props)
     this.state = {  
       finalPrice: '',
-      quantity:this.props.order.quantity
+      showOrder: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
-   
+    this.handleDeleted = this.handleDeleted.bind(this)
     
   }
 
@@ -26,11 +27,7 @@ class Basket extends React.Component {
     });
   }
 
-
-
-// when the post is made
- 
-    
+     
   submitOrder() {
     fetch('/api/orders', {
     method: 'post',
@@ -41,6 +38,11 @@ class Basket extends React.Component {
   }).then(response => {
     return response.json();
   }).then(data => {
+    const showOrder = this.props.order
+    this.setState({
+      showOrder: showOrder,
+      button: showOrder ? true : false
+    })
     alert("Thanks for your order! Your order id is: " + data.orderId)
     this.props.clearOrder()
   });
@@ -51,9 +53,15 @@ handleSubmit(){
 }
 
 
+
+handleDeleted(event) {
+  event.preventDefault();
+  this.props.handleDelete(this.props.order.orderedItem);
+}
+
+
     
   render(){
-    
     const { order } = this.props;
     let prices = Array.from(order).map(items => items.price);
     let totalPrice = prices.reduce(function(acc, item) {
@@ -62,18 +70,22 @@ handleSubmit(){
     let priceWithDelivery = totalPrice + 5.00;
   
       return (
-        <div className='basket'>
-          <h2>Order Status</h2>
+        <div className='basket sticky'>
+          <h3>Your Order</h3>
           <p><strong>Delivery charge: £5.00</strong></p>
           {Object.keys(this.props.order).map(item => {
             return (
                 <div key={this.props.order[item]} className='order'>
                   <h3>{this.props.order[item].item}</h3>
                   <h3>Quantity: {this.props.order[item].quantity} 
-                  <input type="button" value="+" />
-                  <input type="button" value="-" />
+                  <div>
+                    <input type="button" value="+" />
+                    <input type="button" value="-" />
+                  </div>
                   </h3>
                   <h3>£ {this.props.order[item].price}</h3>
+                  <h2 type="submit" onClick={this.handleDeleted}>X</h2>
+                  {this.state.order && <button>Show My Order</button>}
                 </div>
             )
           })}
@@ -86,4 +98,3 @@ handleSubmit(){
 }
 
 export default Basket;
-
